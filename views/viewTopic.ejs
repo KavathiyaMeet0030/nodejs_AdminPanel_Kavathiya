@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topics and Sub Topics</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            font-weight: 600;
+            color: #444;
+        }
+        .topic-container {
+            background-color: rgba(17, 24, 39, 1);
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.2s ease;
+        }
+        .topic-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .subtopic-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            background-color: white;
+            border-radius: 30px;
+            padding: 10px;
+        }
+        .subtopic-list li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        @media (min-width: 768px) {
+            .topic-container {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+        .topic-back{
+            background-color: rgba(17, 24, 39, 1);
+        }
+
+        .main-btn{
+            background-color: rgba(17, 24, 39, 1);
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 7px;
+        }
+    
+        .navbar {
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    
+      .navbar-brand{
+          font-family: "Bungee Tint", sans-serif;
+          font-size: 25px;
+    
+      }
+      .modal{
+          background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+      }
+
+  
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand " href="/"><b>KAVATHIYA</b></a>
+        <div>
+            <!-- <a href="/login" class="main-btn">LOGIN</a> -->
+            <a href="/logout" class="main-btn">LogOut</a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- body contant -->
+  
+    <div class="container">
+        <h1 class="text-center" style="font-family: cursive;"> View    Topic  ||  SubTopic  </h1>
+        <div class="row" style="margin-top: 60px;">
+            <% topicNames.forEach((topic) => { %>
+                <div class="col-md-6 col-lg-4">
+                    <div class="topic-container">
+                        <div class="topic-title" style="font-family: cursive;font-size: 30px;">
+                         <%= topic.topicName %>
+                        </div>
+                        <ul class="subtopic-list">
+                            <% subTopicsNames.forEach((subTitle) => { %>
+                                <% if (subTitle.topicName && subTitle.topicName._id.toString() === topic._id.toString()) { %>
+                                    <li style="font-family: cursive;font-size:10pxpx;" > <%= subTitle.subtopicName %></li>
+                                <% } %>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- fdf -->
+
+
+    
+    
+
+
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
