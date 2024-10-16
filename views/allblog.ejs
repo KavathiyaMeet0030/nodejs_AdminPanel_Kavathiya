@@ -581,29 +581,34 @@
 
     <div class="container">
         <div class="row d-flex flex-wrap">
-            <% blogs.forEach(blog => { %>
-                <div class="col-4">
-                    <div class="form-container-all-blog mb-5">
-                        <div class="card-body">
-                            <% if(blog.image) { %>
-                                <img src="/<%= blog.image %>" alt="Blog Image" class="blog-image">
-                            <% } %>
-                            <h2 class="font-title mt-3">Title :  
-                                <%= blog.title %></h2>
-                            <p class="font-content">Content :  <%= blog.content %></p>
-
-
-                            <div>
-                                <form action="/allBlogs/<%= blog._id %>" method="POST">
-                                    <textarea name="comment" rows="2" placeholder="Write your comment..." required class="w-12" style="width:100%;"></textarea>
-                                    <button type="submit" class="sign">Post Comment</button>
-                                  </form>
-                            </div>
-                            
+          <% blogs.forEach(blog => { %>
+            <div class="col-4">
+                <div class="form-container-all-blog mb-5">
+                    <div class="card-body">
+                        <% if(blog.image) { %>
+                            <img src="/<%= blog.image %>" alt="Blog Image" class="blog-image">
+                        <% } %>
+                        <h2 class="font-title mt-3">Title : <%= blog.title %></h2>
+                        <p class="font-content">Content : <%= blog.content %></p>
+        
+                        <div>
+                            <form action="/allBlogs/<%= blog._id %>" method="POST">
+                                <textarea name="comment" rows="2" placeholder="Write your comment..." required class="w-12" style="width:100%;"></textarea>
+                                <button type="submit" class="sign mt-2 ">Post Comment</button>
+                            </form>
+                        </div>
+        
+                        <div class="mt-3">
+                          <% blog.comments.forEach(comment => { %> <!-- Corrected to blog.comments -->
+                             <div class="bg-dark text-white py-2 px-3 rounded-5 fs-5"><%= comment.content %></div> 
+                              <div class="fs-6 text-right"  style="font-family: cursive;"><%= comment.user.fname %></div> <!-- Displaying the comment author's name -->
+                          <% }) %>
                         </div>
                     </div>
                 </div>
-            <% }) %>
+            </div>
+        <% }) %>
+        
         </div>
     </div>
 

@@ -1,9 +1,10 @@
 const path = require('path');
 const BlogSchema = require('../models/blogmodel');
+const Commentmodel = require('../models/commentmodel');
 const fs = require('fs');
 
 
-const addblogUser = async(req,res) =>{
+const addblogUser = async (req, res) => {
 
 
     console.log("ADD BLOG POST CONTROLLER");
@@ -18,9 +19,9 @@ const addblogUser = async(req,res) =>{
         image
     });
 
-    await blog.save();  
+    await blog.save();
 
-    console.log("blog",blog);
+    console.log("blog", blog);
 
     res.redirect('/');
 
@@ -28,17 +29,30 @@ const addblogUser = async(req,res) =>{
 
 //AllBlogsController
 
-const AllBlogsController = async(req,res)=>{
+const AllBlogsController = async (req, res) => {
+    console.log("All Blog Views");
 
- console.log("All Blog Views");
-    const blogs = await BlogSchema.find();
-    console.log("all BLogs",blogs);
+    // Correct the populate field to 'comments' instead of 'Comment'
+    const blogs = await BlogSchema.find()
+        .populate('user', 'fname')  // Populate user field
+        .populate({ 
+            path: 'comments',       // Populate the 'comments' field (not 'Comment')
+            populate: { 
+                path: 'user', 
+                select: 'fname'      // Populate user field in comments
+            }
+        });
+
+    console.log("All Blogs", blogs);
     res.render('allblog', { blogs });
+};
 
-}
+   
+   
 
 
-const viewblogs =async(req,res) =>{
+
+const viewblogs = async (req, res) => {
 
     console.log("my blogs");
     const blogs = await BlogSchema.find();
@@ -48,19 +62,19 @@ const viewblogs =async(req,res) =>{
 
 //editblog
 
-const editblog = async(req,res) =>{
+const editblog = async (req, res) => {
     console.log("edit blog");
 
 
-    const Blog = await BlogSchema.findOne({_id: req.params.id});
+    const Blog = await BlogSchema.findOne({ _id: req.params.id });
     console.log("EDIT BLOG : ", Blog);
-    res.render('editBlog', {Blog});
+    res.render('editBlog', { Blog });
 
 }
 
 //updateblog
 
-const updateblog = async(req,res)=>{
+const updateblog = async (req, res) => {
 
     console.log("updat blog render");
     const blog = await BlogSchema.findById(req.params.id);
@@ -82,13 +96,13 @@ const updateblog = async(req,res)=>{
 
     await blog.save();
     console.log("update blog ", blog);
-    
+
     res.redirect('/');
 
 }
 
 
-const deleteblog = async(req,res) =>{
+const deleteblog = async (req, res) => {
 
     console.log("delete blog");
 
@@ -111,4 +125,4 @@ const deleteblog = async(req,res) =>{
 }
 
 
-module.exports = {addblogUser,AllBlogsController,viewblogs,updateblog,editblog,deleteblog}
+module.exports = { addblogUser, AllBlogsController, viewblogs, updateblog, editblog, deleteblog }

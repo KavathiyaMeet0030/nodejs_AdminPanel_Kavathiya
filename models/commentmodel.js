@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
     blogId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Blog',
+        ref: 'Blogs',
         required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'users', 
         required: true
     },
     content: {
